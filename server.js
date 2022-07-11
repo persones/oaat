@@ -8,7 +8,7 @@ const port = 3001;
 
 
 const fs = require('fs');
-const dataPath = '/Users/eshahar/Desktop/oaat.json'
+const dataPath = '/var/lib/oaat/data.json'
 var data = fs.readFileSync(dataPath);
 
 app.all('/data', function(req, res, next) {
