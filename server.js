@@ -1,9 +1,12 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 var cors = require('cors')
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static(path.join(__dirname, 'dist')));
+
 const port = 3001;
 
 
@@ -16,7 +19,7 @@ app.all('/data', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
-
+ 
 app.get('/data', (req, res) => {
   res.send(data)
 })
