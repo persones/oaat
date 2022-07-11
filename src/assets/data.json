@@ -1,0 +1,24 @@
+{   
+    "projects": [{
+        "projectName": "grill",
+        "tasks": [{
+            "taskName": "buy parts"
+        },
+        {
+            "taskName": "clean grill"
+        }]
+    },
+    {
+        "projectName": "wired plant",
+        "tasks": [{
+            "taskName": "build frame"
+        },
+        {   
+            "taskName": "test camera"
+        },
+        {
+            "taskName": "schedule with Ray"
+        }]
+    }]
+}    
+        

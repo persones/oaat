@@ -1,0 +1,46 @@
+[
+  {
+    "name": "life",
+    "type": "parallel",
+    "items": [
+      {
+        "name": "home",
+        "type": "parallel",
+        "items": [
+          {
+            "name": "grill",
+            "type": "serial",
+            "items": [
+              "buy parts",
+              "test"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "work",
+        "type": "parallel",
+        "items": [
+          {
+            "name": "wired plant",
+            "type": "serial",
+            "items": [
+              "build frame",
+              "mount camera",
+              "mount grow light"
+            ]
+          },
+          {
+            "name": "Seeing Scientifically",
+            "type": "serial",
+            "items": [
+              "VI window",
+              "Design doc",
+              "Logging"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
