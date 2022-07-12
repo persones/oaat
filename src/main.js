@@ -17,7 +17,7 @@ function mapNode(node) {
   }
 }
 
-fetch('http://localhost:3001/data').then(res => {
+fetch('/data').then(res => {
   console.log(res);
   res.json().then(data => {
     console.log(data);

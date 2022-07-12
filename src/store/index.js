@@ -38,7 +38,7 @@ export default createStore({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(state.data)
       };
-      fetch("http://localhost:3001/data", requestOptions)
+      fetch("/data", requestOptions)
         .then(response => response.text())
         .then(data => console.log);
     },
