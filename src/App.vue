@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div>OAAT</div>
+    <div @click="setCurrentItem(data[0])">OAAT</div>
     <div v-if="currentItem">
       <div class="nav">
-        <button @click="setCurrentItem(data[0])">home</button>
         <button @click="toggleViewMode" v-html="viewMode"></button>
       </div>
       <ListItem :item="currentItem" />
@@ -40,7 +39,7 @@ export default {
 
 <style>
   body {
-    font-size: 70px;
+    font-size: 50px;
     font-family: sans-serif;
     background: black;
     color: white;

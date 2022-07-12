@@ -3,17 +3,22 @@
     <div v-if="typeof item == 'object'">
       <div v-if="item  == currentItem">
         <button @click="toggleItemType" v-html="currentItem.type"></button>
-        <button @click="addItem">add item</button>
         <button @click="rename">rename</button>
       </div>
       <div class="list-title" @click="setCurrentItem(item)">{{ item.name }}</div>
       <div :class="item.type" class="item-list-container">
         <div class="child-container" v-for="(child, idx) in childrenToShow" :key="idx">
-          <div class="item-button" @click="deleteChild(item.id, idx)">x</div>
-          <div v-if="(item.type=='serial') && (idx > 0)" class="item-button" @click="childUp(idx)">&uarr;</div>
-          <div v-if="(item.type=='serial') && (idx < item.items.length - 1)" class="item-button" @click="childDown(idx)">&darr;</div>
+          <div class="buttons">
+            <div v-if="item.items.length > 0" class="item-button" @click="deleteChild(item.id, idx)">x</div>
+            <div v-if="(item.type=='serial') && (idx > 0)" class="item-button" @click="childUp(idx)">&uarr;</div>
+            <div v-if="(item.type=='serial') && (idx < item.items.length - 1)" class="item-button" @click="childDown(idx)">&darr;</div>
+          </div>
           <div v-if="typeof child == 'string'" class="item-header"><em>{{ child }}</em></div>      
           <ListItem v-else :item="child" :childIndex="idx" />
+        </div>
+        <div class="child-container">
+          <div class="buttons"></div>
+          <div contenteditable="true" class="new-item" @input="newItemNameEntered" @click="newItemEntered" @keypress="keyPressedOnNewItem">+</div>
         </div>
       </div>
     </div>
@@ -41,18 +46,24 @@ export default {
     ...mapMutations(['setCurrentItem', 'updateCurrentItem', 'deleteChild', 'updateItem']),
     toggleItemType() {
       this.item.type = (this.currentItem.type == 'serial' ? 'parallel' : 'serial');
-      this(up)
       this.updateItem(this.item);
     },
-    addItem() {
-      let itemName = window.prompt('item name:');
-      if (itemName) {
-        this.items.push({
-          name: itemName,
+    newItemEntered(ev) {
+      ev.target.innerHTML = "";
+    },
+    keyPressedOnNewItem(ev) {
+      let key = ev.which || ev.keyCode;
+      console.log(key);
+      if (key === 13) { // 13 is enter
+        this.item.items.push({
+          name: ev.target.innerHTML,
           type: 'serial',
           items: []
         });
+        ev.target.blur();
+        ev.target.innerHTML = '+';
       }
+      
       this.updateItem(this.item);
     },
     rename() {
@@ -76,17 +87,17 @@ export default {
 
 <style>
   .item {
-    font-size: 0.7em;
     margin: 0 0.5em;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
     display: flex;
     flex-direction: row;
   }
 
   .item-button {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
     color: black;
     background: white;
     margin: .2em;
@@ -98,6 +109,7 @@ export default {
 
   .child-container {
     display: flex;
+    font-size: 0.8em;
   }
   .item-header {
     display: flex;
@@ -121,6 +133,16 @@ export default {
   .serial {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .new-item {
+    opacity: 0.5;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    width:3em;
+    font-size: 0.7em;
   }
 
 </style>
